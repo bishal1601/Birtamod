@@ -1,0 +1,105 @@
+{
+  "template": "app",
+  "imports": {
+    "Volo.Abp.LeptonXLiteTheme": {
+      "version": "4.2.2",
+      "isInstalled": true
+    },
+    "Volo.Abp.Account": {
+      "version": "9.2.2",
+      "isInstalled": true
+    },
+    "Volo.Abp.OpenIddict": {
+      "version": "9.2.2",
+      "isInstalled": true
+    },
+    "Volo.Abp.Identity": {
+      "version": "9.2.2",
+      "isInstalled": true
+    },
+    "Volo.Abp.TenantManagement": {
+      "version": "9.2.2",
+      "isInstalled": true
+    },
+    "Volo.Abp.SettingManagement": {
+      "version": "9.2.2",
+      "isInstalled": true
+    },
+    "Volo.Abp.PermissionManagement": {
+      "version": "9.2.2",
+      "isInstalled": true
+    },
+    "Volo.Abp.FeatureManagement": {
+      "version": "9.2.2",
+      "isInstalled": true
+    }
+  },
+  "folders": {
+    "items": {
+      "src": {},
+      "test": {}
+    }
+  },
+  "packages": {
+    "Birtamod.Application": {
+      "path": "src/Birtamod.Application/Birtamod.Application.abppkg",
+      "folder": "src"
+    },
+    "Birtamod.Application.Tests": {
+      "path": "test/Birtamod.Application.Tests/Birtamod.Application.Tests.abppkg",
+      "folder": "test"
+    },
+    "Birtamod.Domain.Shared": {
+      "path": "src/Birtamod.Domain.Shared/Birtamod.Domain.Shared.abppkg",
+      "folder": "src"
+    },
+    "Birtamod.Application.Contracts": {
+      "path": "src/Birtamod.Application.Contracts/Birtamod.Application.Contracts.abppkg",
+      "folder": "src"
+    },
+    "Birtamod.HttpApi": {
+      "path": "src/Birtamod.HttpApi/Birtamod.HttpApi.abppkg",
+      "folder": "src"
+    },
+    "Birtamod.HttpApi.Client": {
+      "path": "src/Birtamod.HttpApi.Client/Birtamod.HttpApi.Client.abppkg",
+      "folder": "src"
+    },
+    "Birtamod.Web": {
+      "path": "src/Birtamod.Web/Birtamod.Web.abppkg",
+      "folder": "src"
+    },
+    "Birtamod.Web.Tests": {
+      "path": "test/Birtamod.Web.Tests/Birtamod.Web.Tests.abppkg",
+      "folder": "test"
+    },
+    "Birtamod.EntityFrameworkCore.Tests": {
+      "path": "test/Birtamod.EntityFrameworkCore.Tests/Birtamod.EntityFrameworkCore.Tests.abppkg",
+      "folder": "test"
+    },
+    "Birtamod.EntityFrameworkCore": {
+      "path": "src/Birtamod.EntityFrameworkCore/Birtamod.EntityFrameworkCore.abppkg",
+      "folder": "src"
+    },
+    "Birtamod.TestBase": {
+      "path": "test/Birtamod.TestBase/Birtamod.TestBase.abppkg",
+      "folder": "test"
+    },
+    "Birtamod.Domain.Tests": {
+      "path": "test/Birtamod.Domain.Tests/Birtamod.Domain.Tests.abppkg",
+      "folder": "test"
+    },
+    "Birtamod.HttpApi.Client.ConsoleTestApp": {
+      "path": "test/Birtamod.HttpApi.Client.ConsoleTestApp/Birtamod.HttpApi.Client.ConsoleTestApp.abppkg",
+      "folder": "test"
+    },
+    "Birtamod.DbMigrator": {
+      "path": "src/Birtamod.DbMigrator/Birtamod.DbMigrator.abppkg",
+      "folder": "src"
+    },
+    "Birtamod.Domain": {
+      "path": "src/Birtamod.Domain/Birtamod.Domain.abppkg",
+      "folder": "src"
+    }
+  }
+}
