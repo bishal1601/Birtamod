@@ -1,0 +1,26 @@
+@page
+@model Birtamod.Web.Pages.FamilyTypes.IndexModel
+@using Volo.Abp.AspNetCore.Mvc.UI.Layout
+@inject IPageLayout PageLayout
+@{
+    PageLayout.Content.MenuItemName = "Birtamod.FamilyTypes";
+    ViewBag.PageTitle = "Family Types";
+}
+
+<partial name="~/Pages/Shared/_PopulationCrudShell.cshtml" />
+
+@section scripts {
+    <script>
+        window.populationCrudConfig = {
+            entityName: 'FamilyType',
+            apiBaseUrl: '/api/app/family-type',
+            columns: [{ name: 'name', label: 'Name' }, { name: 'description', label: 'Description' }, { name: 'isActive', label: 'Active' }],
+            fields: [
+                { name: 'name', label: 'Name' },
+                { name: 'description', label: 'Description' },
+                { name: 'isActive', label: 'Is Active', type: 'checkbox', defaultValue: true }
+            ]
+        };
+    </script>
+    <abp-script src="/js/population-crud-page.js" />
+}

@@ -1,0 +1,26 @@
+@page
+@model Birtamod.Web.Pages.Wards.IndexModel
+@using Volo.Abp.AspNetCore.Mvc.UI.Layout
+@inject IPageLayout PageLayout
+@{
+    PageLayout.Content.MenuItemName = "Birtamod.Wards";
+    ViewBag.PageTitle = "Wards";
+}
+
+<partial name="~/Pages/Shared/_PopulationCrudShell.cshtml" />
+
+@section scripts {
+    <script>
+        window.populationCrudConfig = {
+            entityName: 'Ward',
+            apiBaseUrl: '/api/app/ward',
+            columns: [{ name: 'wardNumber', label: 'Ward No' }, { name: 'wardName', label: 'Ward Name' }, { name: 'description', label: 'Description' }],
+            fields: [
+                { name: 'wardNumber', label: 'Ward Number', type: 'number' },
+                { name: 'wardName', label: 'Ward Name' },
+                { name: 'description', label: 'Description' }
+            ]
+        };
+    </script>
+    <abp-script src="/js/population-crud-page.js" />
+}

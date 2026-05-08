@@ -17,6 +17,7 @@ using Volo.Abp.Emailing;
 using Volo.Abp.FeatureManagement;
 using Volo.Abp.Identity;
 using Volo.Abp.TenantManagement;
+using Birtamod.Population;
 
 namespace Birtamod;
 
@@ -48,5 +49,6 @@ public class BirtamodDomainModule : AbpModule
 #if DEBUG
         context.Services.Replace(ServiceDescriptor.Singleton<IEmailSender, NullEmailSender>());
 #endif
+        context.Services.AddTransient<IDateConversionManager, DateConversionManager>();
     }
 }

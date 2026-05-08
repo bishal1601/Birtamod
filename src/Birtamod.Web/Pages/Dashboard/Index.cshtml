@@ -1,0 +1,27 @@
+@page
+@model Birtamod.Web.Pages.Dashboard.IndexModel
+@using Birtamod.Localization
+@using Birtamod.Web.Menus
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Layout
+@inject IPageLayout PageLayout
+@inject IHtmlLocalizer<BirtamodResource> L
+@{
+    ViewBag.PageTitle = L["Menu:Dashboard"];
+    PageLayout.Content.MenuItemName = BirtamodMenus.Dashboard;
+}
+
+<abp-card>
+    <abp-card-header>
+        <abp-card-title>@L["Menu:Dashboard"]</abp-card-title>
+    </abp-card-header>
+    <abp-card-body>
+        <div class="row mb-3" id="summaryCards"></div>
+        <canvas id="genderChart" height="100"></canvas>
+    </abp-card-body>
+</abp-card>
+
+@section scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <abp-script src="/Pages/Dashboard/index.js" />
+}

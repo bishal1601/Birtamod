@@ -1,0 +1,157 @@
+@page
+@model Birtamod.Web.Pages.Citizens.IndexModel
+@using Birtamod.Web.Menus
+@using Volo.Abp.AspNetCore.Mvc.UI.Layout
+@inject IPageLayout PageLayout
+@{
+    PageLayout.Content.MenuItemName = "Birtamod.Citizens";
+    ViewBag.PageTitle = "Citizens";
+}
+
+<abp-card>
+    <abp-card-header>
+        <abp-row>
+            <abp-column size-md="_6"><abp-card-title>Citizens</abp-card-title></abp-column>
+            <abp-column size-md="_6" class="text-end">
+                <button id="crudCreateBtn" class="btn btn-primary">Create</button>
+                <button id="crudExportCsvBtn" class="btn btn-outline-secondary">CSV</button>
+                <button id="crudExportExcelBtn" class="btn btn-outline-secondary">Excel</button>
+            </abp-column>
+        </abp-row>
+    </abp-card-header>
+    <abp-card-body>
+        <div class="input-group mb-3">
+            <input id="crudSearchInput" class="form-control" placeholder="Search..." />
+            <button id="crudSearchBtn" class="btn btn-outline-primary">Search</button>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Gender</th>
+                        <th>DOB AD</th>
+                        <th>DOB BS</th>
+                        <th>Age</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="crudTableBody"></tbody>
+            </table>
+        </div>
+        <div class="d-flex justify-content-between">
+            <span id="crudPagerInfo"></span>
+            <div>
+                <button id="crudPrevBtn" class="btn btn-sm btn-outline-secondary">Prev</button>
+                <button id="crudNextBtn" class="btn btn-sm btn-outline-secondary">Next</button>
+            </div>
+        </div>
+    </abp-card-body>
+</abp-card>
+
+<div id="crudModal" class="card shadow-sm p-3" style="display:none; position:fixed; z-index:9999; top:5%; left:50%; transform:translateX(-50%); width:min(900px,95%); max-height:90vh; overflow:auto;">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+        <h5 id="crudTitle" class="mb-0"></h5>
+        <button id="crudModalCloseBtn" class="btn btn-sm btn-outline-secondary">X</button>
+    </div>
+    <form id="crudForm"></form>
+    <div class="text-end mt-2">
+        <button id="crudSaveBtn" type="button" class="btn btn-primary">Save</button>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        let isConvertingDob = false;
+
+        async function syncDob(source) {
+            if (isConvertingDob) return;
+            isConvertingDob = true;
+            try {
+                const ad = document.getElementById('f_dateOfBirthAd')?.value || null;
+                const bs = document.getElementById('f_dateOfBirthBs')?.value || null;
+
+                if (source === 'ad' && !ad) {
+                    document.getElementById('f_age').value = '';
+                    isConvertingDob = false;
+                    return;
+                }
+
+                if (source === 'bs' && !bs) {
+                    document.getElementById('f_age').value = '';
+                    isConvertingDob = false;
+                    return;
+                }
+
+                const result = await abp.ajax({
+                    url: '/api/app/citizen/convert-date',
+                    type: 'POST',
+                    data: JSON.stringify({
+                        dateOfBirthAd: source === 'ad' ? ad : null,
+                        dateOfBirthBs: source === 'bs' ? bs : null
+                    })
+                });
+
+                if (result?.dateOfBirthAd) {
+                    const adDate = new Date(result.dateOfBirthAd);
+                    const yyyy = adDate.getFullYear();
+                    const mm = String(adDate.getMonth() + 1).padStart(2, '0');
+                    const dd = String(adDate.getDate()).padStart(2, '0');
+                    document.getElementById('f_dateOfBirthAd').value = `${yyyy}-${mm}-${dd}`;
+                }
+                document.getElementById('f_dateOfBirthBs').value = result?.dateOfBirthBs || '';
+                document.getElementById('f_age').value = result?.age ?? '';
+            } catch {
+                // Keep current values if conversion fails; server will still validate on submit.
+            } finally {
+                isConvertingDob = false;
+            }
+        }
+
+        window.populationCrudConfig = {
+            entityName: 'Citizen',
+            apiBaseUrl: '/api/app/citizen',
+            columns: [
+                { name: 'firstName' }, { name: 'lastName' }, { name: 'gender' }, { name: 'dateOfBirthAd' }, { name: 'dateOfBirthBs' }, { name: 'age' }
+            ],
+            fields: [
+                { name: 'firstName', label: 'First Name' },
+                { name: 'middleName', label: 'Middle Name' },
+                { name: 'lastName', label: 'Last Name' },
+                {
+                    name: 'gender',
+                    label: 'Gender',
+                    type: 'select',
+                    valueType: 'number',
+                    defaultValue: '1',
+                    options: [
+                        { value: '1', text: 'Male' },
+                        { value: '2', text: 'Female' },
+                        { value: '3', text: 'Other' }
+                    ]
+                },
+                { name: 'dateOfBirthAd', label: 'Date Of Birth (AD)', type: 'date', onChange: () => syncDob('ad') },
+                { name: 'dateOfBirthBs', label: 'Date Of Birth (BS)', onChange: () => syncDob('bs') },
+                { name: 'age', label: 'Age', type: 'number', readOnly: true, excludeFromPayload: true },
+                { name: 'religionId', label: 'Religion', type: 'select', lookupUrl: '/api/app/religion' },
+                { name: 'languageId', label: 'Language', type: 'select', lookupUrl: '/api/app/language' },
+                { name: 'ethnicityId', label: 'Ethnicity', type: 'select', lookupUrl: '/api/app/ethnicity' },
+                { name: 'educationQualificationId', label: 'Education Qualification', type: 'select', lookupUrl: '/api/app/education-qualification' },
+                { name: 'familyTypeId', label: 'Family Type', type: 'select', lookupUrl: '/api/app/family-type' },
+                { name: 'disabilityStatus', label: 'Disability Status', type: 'checkbox' },
+                { name: 'occupation', label: 'Occupation' },
+                { name: 'citizenshipNumber', label: 'Citizenship Number' },
+                { name: 'phoneNumber', label: 'Phone Number' },
+                { name: 'email', label: 'Email' },
+                { name: 'wardId', label: 'Ward', type: 'select', lookupUrl: '/api/app/ward' },
+                { name: 'householdId', label: 'Household', type: 'select', lookupUrl: '/api/app/household' },
+                { name: 'isHouseOwner', label: 'Is House Owner', type: 'checkbox' },
+                { name: 'hasToilet', label: 'Has Toilet', type: 'checkbox' },
+                { name: 'address', label: 'Address' }
+            ]
+        };
+    </script>
+    <abp-script src="/js/population-crud-page.js" />
+}

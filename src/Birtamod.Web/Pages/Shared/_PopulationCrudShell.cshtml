@@ -1,0 +1,43 @@
+<abp-card>
+    <abp-card-header>
+        <abp-row>
+            <abp-column size-md="_6"><abp-card-title>@ViewBag.PageTitle</abp-card-title></abp-column>
+            <abp-column size-md="_6" class="text-end">
+                <button id="crudCreateBtn" class="btn btn-primary">Create</button>
+                <button id="crudExportCsvBtn" class="btn btn-outline-secondary">CSV</button>
+                <button id="crudExportExcelBtn" class="btn btn-outline-secondary">Excel</button>
+            </abp-column>
+        </abp-row>
+    </abp-card-header>
+    <abp-card-body>
+        <div class="input-group mb-3">
+            <input id="crudSearchInput" class="form-control" placeholder="Search..." />
+            <button id="crudSearchBtn" class="btn btn-outline-primary">Search</button>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead><tr id="crudHeaderRow"></tr></thead>
+                <tbody id="crudTableBody"></tbody>
+            </table>
+        </div>
+        <div class="d-flex justify-content-between">
+            <span id="crudPagerInfo"></span>
+            <div>
+                <button id="crudPrevBtn" class="btn btn-sm btn-outline-secondary">Prev</button>
+                <button id="crudNextBtn" class="btn btn-sm btn-outline-secondary">Next</button>
+            </div>
+        </div>
+    </abp-card-body>
+</abp-card>
+
+<div id="crudModal" class="card shadow-sm p-3" style="display:none; position:fixed; z-index:9999; top:5%; left:50%; transform:translateX(-50%); width:min(900px,95%); max-height:90vh; overflow:auto;">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+        <h5 id="crudTitle" class="mb-0"></h5>
+        <button id="crudModalCloseBtn" class="btn btn-sm btn-outline-secondary">X</button>
+    </div>
+    <form id="crudForm"></form>
+    <div class="text-end mt-2">
+        <button id="crudSaveBtn" type="button" class="btn btn-primary">Save</button>
+    </div>
+</div>

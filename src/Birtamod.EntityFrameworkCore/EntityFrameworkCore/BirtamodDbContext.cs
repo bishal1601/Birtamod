@@ -14,6 +14,7 @@ using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.OpenIddict.EntityFrameworkCore;
 using Volo.Abp.TenantManagement;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
+using Birtamod.Population;
 
 namespace Birtamod.EntityFrameworkCore;
 
@@ -55,6 +56,15 @@ public class BirtamodDbContext :
     public DbSet<Tenant> Tenants { get; set; }
     public DbSet<TenantConnectionString> TenantConnectionStrings { get; set; }
 
+    public DbSet<Citizen> Citizens { get; set; }
+    public DbSet<Household> Households { get; set; }
+    public DbSet<Religion> Religions { get; set; }
+    public DbSet<Language> Languages { get; set; }
+    public DbSet<Ethnicity> Ethnicities { get; set; }
+    public DbSet<EducationQualification> EducationQualifications { get; set; }
+    public DbSet<FamilyType> FamilyTypes { get; set; }
+    public DbSet<Ward> Wards { get; set; }
+
     #endregion
 
     public BirtamodDbContext(DbContextOptions<BirtamodDbContext> options)
@@ -78,6 +88,7 @@ public class BirtamodDbContext :
         builder.ConfigureOpenIddict();
         builder.ConfigureTenantManagement();
         builder.ConfigureBlobStoring();
+        builder.ConfigurePopulationManagement();
         
         /* Configure your own tables/entities inside here */
 

@@ -1,0 +1,30 @@
+@page
+@model Birtamod.Web.Pages.Households.IndexModel
+@using Volo.Abp.AspNetCore.Mvc.UI.Layout
+@inject IPageLayout PageLayout
+@{
+    PageLayout.Content.MenuItemName = "Birtamod.Households";
+    ViewBag.PageTitle = "Households";
+}
+
+<partial name="~/Pages/Shared/_PopulationCrudShell.cshtml" />
+
+@section scripts {
+    <script>
+        window.populationCrudConfig = {
+            entityName: 'Household',
+            apiBaseUrl: '/api/app/household',
+            columns: [{ name: 'houseNumber' }, { name: 'familyHeadName' }, { name: 'totalMembers' }, { name: 'address' }],
+            fields: [
+                { name: 'houseNumber', label: 'House Number' },
+                { name: 'familyHeadName', label: 'Family Head Name' },
+                { name: 'wardId', label: 'Ward Id' },
+                { name: 'totalMembers', label: 'Total Members', type: 'number' },
+                { name: 'address', label: 'Address' },
+                { name: 'latitude', label: 'Latitude', type: 'number' },
+                { name: 'longitude', label: 'Longitude', type: 'number' }
+            ]
+        };
+    </script>
+    <abp-script src="/js/population-crud-page.js" />
+}

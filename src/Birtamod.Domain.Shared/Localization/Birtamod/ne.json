@@ -1,0 +1,21 @@
+{
+  "Culture": "ne",
+  "Texts": {
+    "AppName": "बिर्तामोड",
+    "Menu:Home": "गृहपृष्ठ",
+    "Menu:Dashboard": "ड्यासबोर्ड",
+    "Menu:PublicDashboard": "सार्वजनिक ड्यासबोर्ड",
+    "Menu:PopulationManagement": "जनसंख्या व्यवस्थापन",
+    "Menu:Citizens": "नागरिक",
+    "Menu:Households": "घरधुरी",
+    "Menu:Religions": "धर्म",
+    "Menu:Languages": "भाषा",
+    "Menu:Ethnicities": "जातीयता",
+    "Menu:EducationQualifications": "शैक्षिक योग्यता",
+    "Menu:FamilyTypes": "परिवार प्रकार",
+    "Menu:Wards": "वडा",
+    "Permission:Dashboard.View": "प्रशासन ड्यासबोर्ड हेर्नुहोस्",
+    "Permission:Dashboard.PublicView": "सार्वजनिक ड्यासबोर्ड हेर्नुहोस्",
+    "DateOfBirthRequired": "जन्म मिति AD वा BS मध्ये एक आवश्यक छ।"
+  }
+}

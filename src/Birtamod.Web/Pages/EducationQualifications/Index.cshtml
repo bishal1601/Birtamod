@@ -1,0 +1,26 @@
+@page
+@model Birtamod.Web.Pages.EducationQualifications.IndexModel
+@using Volo.Abp.AspNetCore.Mvc.UI.Layout
+@inject IPageLayout PageLayout
+@{
+    PageLayout.Content.MenuItemName = "Birtamod.EducationQualifications";
+    ViewBag.PageTitle = "Education Qualifications";
+}
+
+<partial name="~/Pages/Shared/_PopulationCrudShell.cshtml" />
+
+@section scripts {
+    <script>
+        window.populationCrudConfig = {
+            entityName: 'EducationQualification',
+            apiBaseUrl: '/api/app/education-qualification',
+            columns: [{ name: 'name', label: 'Name' }, { name: 'description', label: 'Description' }, { name: 'isActive', label: 'Active' }],
+            fields: [
+                { name: 'name', label: 'Name' },
+                { name: 'description', label: 'Description' },
+                { name: 'isActive', label: 'Is Active', type: 'checkbox', defaultValue: true }
+            ]
+        };
+    </script>
+    <abp-script src="/js/population-crud-page.js" />
+}
